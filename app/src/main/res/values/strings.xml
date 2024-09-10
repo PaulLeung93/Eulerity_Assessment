@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Eulerity_Assessment</string>
     <string name="pet_image_desc">Description of the owners pet :)</string>
+    <string name="activity_screen">XML</string>
 </resources>
