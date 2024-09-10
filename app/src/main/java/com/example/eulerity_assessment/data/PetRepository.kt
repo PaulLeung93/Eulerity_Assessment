@@ -1,22 +1,8 @@
-import com.example.eulerity_assessment.data.PetsAPI
+// PetsRepository.kt
+package com.example.eulerity_assessment.data
+
 import com.example.eulerity_assessment.domain.model.Pet
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-class PetsRepository {
-
-    private val api: PetsAPI
-
-    init {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://eulerity-hackathon.appspot.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        api = retrofit.create(PetsAPI::class.java)
-    }
-
-    suspend fun getPets(): List<Pet> {
-        return api.getPets()
-    }
+interface PetRepository {
+    suspend fun getPets(): List<Pet>
 }
