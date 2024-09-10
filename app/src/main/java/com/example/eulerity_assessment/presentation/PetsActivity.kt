@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eulerity_assessment.R
 import com.example.eulerity_assessment.domain.model.Pet
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PetsActivity : AppCompatActivity() {
     private lateinit var viewModel: PetsViewModel
     private lateinit var petsAdapter: PetsAdapter

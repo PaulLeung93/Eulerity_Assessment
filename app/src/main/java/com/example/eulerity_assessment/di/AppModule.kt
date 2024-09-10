@@ -5,6 +5,7 @@ import com.example.eulerity_assessment.data.PetRepository
 import com.example.eulerity_assessment.data.PetsAPI
 import com.example.eulerity_assessment.data.PetsRepositoryImpl
 import com.example.eulerity_assessment.domain.SortPetsUseCase
+import com.example.eulerity_assessment.domain.SortPetsUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,6 +42,6 @@ object AppModule {
     @Provides
     @Singleton
     fun provideSortPetsUseCase(): SortPetsUseCase {
-        return SortPetsUseCase.SortPetsUseCaseImpl()
+        return SortPetsUseCaseImpl()
     }
 }

@@ -31,7 +31,7 @@ class PetsViewModel @Inject constructor(
                 val petsList = repository.getPets()
                 _pets.value = petsList
             } catch (e: Exception) {
-                Log.e("PetsViewModel: error: ${e.message}", e)
+                Log.e("PetsViewModel", "error: ${e.message}", e)
             }
         }
     }
