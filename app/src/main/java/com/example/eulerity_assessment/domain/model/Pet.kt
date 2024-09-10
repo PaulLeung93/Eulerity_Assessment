@@ -1,4 +1,4 @@
-package com.example.eulerity_assessment.data
+package com.example.eulerity_assessment.domain.model
 
 data class Pet(
     val title: String,

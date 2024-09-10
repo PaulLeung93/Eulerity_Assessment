@@ -1,6 +1,6 @@
 package com.example.eulerity_assessment.domain
 
-import com.example.eulerity_assessment.data.Pet
+import com.example.eulerity_assessment.domain.model.Pet
 
 class SortPetsUseCase {
     class SortPetsUseCase {

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.eulerity_assessment.data.Pet
+import com.example.eulerity_assessment.domain.model.Pet
 import com.example.eulerity_assessment.data.PetsRepository
 import com.example.eulerity_assessment.domain.SortPetsUseCase
 import kotlinx.coroutines.launch
