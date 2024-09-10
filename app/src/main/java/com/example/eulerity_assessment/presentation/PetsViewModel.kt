@@ -9,8 +9,7 @@ import com.example.eulerity_assessment.data.PetsRepository
 import com.example.eulerity_assessment.domain.SortPetsUseCase
 import kotlinx.coroutines.launch
 
-class PetsViewModel {
-    class PetsViewModel(
+class PetsViewModel(
         private val repository: PetsRepository,
         private val sortPetsUseCase: SortPetsUseCase.SortPetsUseCase
     ) : ViewModel() {
@@ -44,4 +43,3 @@ class PetsViewModel {
             }
         }
     }
-}
