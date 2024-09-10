@@ -51,7 +51,7 @@ fun PetDetailsScreen(pet: Pet?) {
                     containerColor = colorResource(R.color.colorPrimary),
                     titleContentColor = colorResource(R.color.colorOnPrimary),
                 ),
-                title = { Text("JetPack Compose") }
+                title = { Text("Compose Screen") }
             )
         }
     ) { innerPadding ->
