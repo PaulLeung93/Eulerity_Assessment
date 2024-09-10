@@ -1,10 +1,13 @@
 package com.example.eulerity_assessment.presentation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -24,6 +27,7 @@ class PetDetailsComposeActivity : ComponentActivity() {
             Eulerity_AssessmentTheme {
                 //Retrieve serialized Pet object from intent
                 val pet = remember { intent.getSerializableExtra("pet") as? Pet }
+                Log.d("PetDetails", "Pet: $pet")
                 PetDetailsScreen(pet)
             }
         }
@@ -38,7 +42,9 @@ fun PetDetailsScreen(pet: Pet?) {
                 AsyncImage(
                     model = it.url,
                     contentDescription = null,
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(200.dp)
                 )
                 Text(
                     text = it.title,
