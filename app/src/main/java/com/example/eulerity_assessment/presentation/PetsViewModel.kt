@@ -36,14 +36,21 @@ class PetsViewModel @Inject constructor(
         }
     }
 
-    fun sortPets(ascending: Boolean) {
-        val sortedList = sortPetsUseCase.sortPets(_pets.value ?: emptyList(), ascending)
-        _pets.value = sortedList
-    }
-
+    //TODO: Will be used by search bar to filter by title or description
     fun filterPets(query: String) {
         _pets.value = _pets.value?.filter {
             it.title.contains(query, ignoreCase = true) || it.description.contains(query, ignoreCase = true)
         }
     }
+
+    fun sortPetsAscending() {
+        val sortedList = sortPetsUseCase.sortPets(_pets.value ?: emptyList(), ascending = true)
+        _pets.postValue(sortedList)
+    }
+
+    fun sortPetsDescending() {
+        val sortedList = sortPetsUseCase.sortPets(_pets.value ?: emptyList(), ascending = false)
+        _pets.postValue(sortedList)
+    }
+
 }

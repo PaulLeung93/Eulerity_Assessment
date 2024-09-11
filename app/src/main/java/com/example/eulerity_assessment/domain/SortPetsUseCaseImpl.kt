@@ -6,9 +6,9 @@ import javax.inject.Inject
 class SortPetsUseCaseImpl @Inject constructor() : SortPetsUseCase {
     override fun sortPets(pets: List<Pet>, ascending: Boolean): List<Pet> {
         return if (ascending) {
-            pets.sortedBy { it.created }
+            pets.sortedBy { it.title }
         } else {
-            pets.sortedByDescending { it.created }
+            pets.sortedByDescending { it.title }
         }
     }
 }

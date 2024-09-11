@@ -2,6 +2,8 @@ package com.example.eulerity_assessment.presentation
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -39,6 +41,28 @@ class PetsActivity : AppCompatActivity() {
             petsAdapter.submitList(petsList)
         }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_sort, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.sort_ascending -> {
+                //Sort Pets in ascending order by created date
+                viewModel.sortPetsAscending()
+                true
+            }
+            R.id.sort_descending -> {
+                //Sort Pets in ascending order by created date
+                viewModel.sortPetsDescending()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 
     // Handle pet click and navigate to Compose screen
     private fun onPetClicked(pet: Pet) {
