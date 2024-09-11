@@ -1,5 +1,6 @@
 package com.example.eulerity_assessment.presentation
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -60,6 +61,12 @@ class PetsViewModel @Inject constructor(
     fun sortPetsDescending() {
         val sortedList = sortPetsUseCase.sortPets(_pets.value ?: emptyList(), ascending = false)
         _pets.postValue(sortedList)
+    }
+
+    fun addPet(pet: Pet) {
+        val updatedList = _pets.value?.toMutableList() ?: mutableListOf()
+        updatedList.add(pet)
+        _pets.value = updatedList
     }
 
 }
