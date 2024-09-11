@@ -66,6 +66,7 @@ class PetsViewModel @Inject constructor(
         val updatedList = _pets.value?.toMutableList() ?: mutableListOf()
         updatedList.add(pet)
         _pets.value = updatedList
+        _originalPets.add(pet)
     }
 
 }
