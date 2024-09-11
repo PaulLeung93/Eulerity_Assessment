@@ -1,19 +1,18 @@
 package com.example.eulerity_assessment.presentation
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.activity.enableEdgeToEdge
+import android.widget.EditText
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -70,9 +69,9 @@ class PetsActivity : AppCompatActivity() {
         // Initialize ActivityResultLauncher
         galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val imageUri: Uri? = result.data?.data
+                val imageUri = result.data?.data
                 if (imageUri != null) {
-                    addImageToPetList(imageUri)
+                    showAddPetDialog(imageUri)
                 }
             }
         }
@@ -89,6 +88,7 @@ class PetsActivity : AppCompatActivity() {
             petsAdapter.submitList(petsList)
         }
     }
+
 
     //Inflate the Options menu to allow users to sort Pets by ascending/descending order
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -122,13 +122,31 @@ class PetsActivity : AppCompatActivity() {
     }
 
     //
-    private fun addImageToPetList(imageUri: Uri) {
+    private fun addToPetList(imageUri: Uri, title: String, description: String) {
         val newPet = Pet(
-            title = "New Pet",
-            description = "Added from Gallery",
+            title = title,
+            description = description,
             url = imageUri.toString(),
             created = System.currentTimeMillis().toString() //TODO:Convert date to proper format
         )
         viewModel.addPet(newPet)
+    }
+
+    private fun showAddPetDialog(imageUri: Uri) {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_add_pet, null)
+        val titleEditText: EditText = dialogView.findViewById(R.id.titleEditText)
+        val descriptionEditText: EditText = dialogView.findViewById(R.id.descriptionEditText)
+
+        AlertDialog.Builder(this)
+            .setTitle("Add New Pet")
+            .setView(dialogView)
+            .setPositiveButton("Add") { dialog, _ ->
+                val title = titleEditText.text.toString()
+                val description = descriptionEditText.text.toString()
+                addToPetList(imageUri, title, description)
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
+            .show()
     }
 }

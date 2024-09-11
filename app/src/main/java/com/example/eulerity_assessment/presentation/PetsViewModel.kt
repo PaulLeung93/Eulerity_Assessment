@@ -1,6 +1,5 @@
 package com.example.eulerity_assessment.presentation
 
-import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
