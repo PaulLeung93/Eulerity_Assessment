@@ -3,4 +3,6 @@
     <string name="pet_image_desc">Description of the owners pet :)</string>
     <string name="activity_screen">XML Screen</string>
     <string name="add_FAB">Button that allows users to add a Pet</string>
+    <string name="sort_ascending">Sort Ascending</string>
+    <string name="sort_descending">Sort Descending</string>
 </resources>

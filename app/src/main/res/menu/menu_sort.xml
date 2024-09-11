@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/sort_ascending"
-        android:title="Sort Ascending"
+        android:title="@string/sort_ascending"
         android:icon="@drawable/ic_sort_asc_foreground"
         app:showAsAction="never" />
     <item
         android:id="@+id/sort_descending"
-        android:title="Sort Descending"
+        android:title="@string/sort_descending"
         android:icon="@drawable/ic_sort_desc_foreground"
         app:showAsAction="never" />
 </menu>

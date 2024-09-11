@@ -19,6 +19,7 @@ class PetsViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _pets = MutableLiveData<List<Pet>>()
+    private val _originalPets = mutableListOf<Pet>()  //Used to keep track of the original pet list when refreshing
     val pets: LiveData<List<Pet>> = _pets
 
     init {
@@ -29,6 +30,8 @@ class PetsViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val petsList = repository.getPets()
+                _originalPets.clear()
+                _originalPets.addAll(petsList)
                 _pets.value = petsList
             } catch (e: Exception) {
                 Log.e("PetsViewModel", "error: ${e.message}", e)
@@ -36,10 +39,16 @@ class PetsViewModel @Inject constructor(
         }
     }
 
-    //TODO: Will be used by search bar to filter by title or description
     fun filterPets(query: String) {
-        _pets.value = _pets.value?.filter {
-            it.title.contains(query, ignoreCase = true) || it.description.contains(query, ignoreCase = true)
+        if (query.isEmpty()) {
+            //Reset list
+            _pets.value = _originalPets
+        }
+        else {
+            //Filter based on query in searchbar
+            _pets.value = _originalPets.filter {
+                it.title.contains(query, ignoreCase = true) || it.description.contains(query, ignoreCase = true)
+            }
         }
     }
 

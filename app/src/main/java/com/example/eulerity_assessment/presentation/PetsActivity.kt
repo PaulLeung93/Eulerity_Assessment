@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -29,6 +30,23 @@ class PetsActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.title = getString(R.string.activity_screen)
 
+        val searchbarView: SearchView = findViewById(R.id.searchbar)
+        searchbarView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let {
+                    viewModel.filterPets(it)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let {
+                    viewModel.filterPets(it)
+                }
+                return true
+            }
+        })
+
         viewModel = ViewModelProvider(this).get(PetsViewModel::class.java)
         petsAdapter = PetsAdapter { pet -> onPetClicked(pet) }
 
@@ -36,7 +54,7 @@ class PetsActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = petsAdapter
 
-        // Observe LiveData and sends list to adapter
+        //Observe LiveData and sends list to adapter
         viewModel.pets.observe(this) { petsList ->
             petsAdapter.submitList(petsList)
         }
@@ -50,12 +68,12 @@ class PetsActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.sort_ascending -> {
-                //Sort Pets in ascending order by created date
+                //Sort Pets in ascending order by title
                 viewModel.sortPetsAscending()
                 true
             }
             R.id.sort_descending -> {
-                //Sort Pets in ascending order by created date
+                //Sort Pets in ascending order by title
                 viewModel.sortPetsDescending()
                 true
             }
