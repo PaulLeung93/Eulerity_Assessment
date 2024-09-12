@@ -11,11 +11,18 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -26,9 +33,14 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import coil.compose.AsyncImage
@@ -86,40 +98,64 @@ class PetDetailsComposeActivity : ComponentActivity() {
 fun PetDetailsScreen(pet: Pet?, activity: PetDetailsComposeActivity) {
     val context = LocalContext.current
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = colorResource(R.color.colorPrimary),
-                    titleContentColor = colorResource(R.color.colorOnPrimary),
-                ),
-                title = { Text("Compose Screen") }
-            )
-        }
-    ) { innerPadding ->
-        Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+    Box(modifier = Modifier.fillMaxSize()) {
+
+        Image(
+            modifier = Modifier.fillMaxSize(),
+            painter = painterResource(id = R.drawable.background3),
+            contentDescription = null,
+            contentScale = ContentScale.Crop
+        )
+
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = colorResource(R.color.colorPrimary),
+                        titleContentColor = colorResource(R.color.colorOnPrimary),
+                    ),
+                    title = { Text("Compose Screen") }
+                )
+            },
+            containerColor = Color.Transparent
+        ) { innerPadding ->
             Column(modifier = Modifier.padding(innerPadding).padding(16.dp)) {
                 pet?.let {
                     val imageUrl = it.url
-
                     AsyncImage(
                         model = it.url,
                         contentDescription = null,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(200.dp)
+                            .fillMaxHeight(0.5f),
+                            contentScale = ContentScale.Crop
                     )
-                    Text(
-                        text = it.title,
-                        style = MaterialTheme.typography.headlineMedium,
-                        modifier = Modifier.padding(top = 8.dp)
-                    )
-                    Text(
-                        text = it.description,
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.padding(top = 4.dp)
-                    )
-                    Button(onClick = {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth(0.75f)
+                            .clip(RoundedCornerShape(15.dp))
+                            .background(Color.White)
+                            .align(Alignment.CenterHorizontally)
+                            .padding(10.dp)
+
+                    ) {
+                        Column {
+                            Text(
+                                text = it.title,
+                                style = MaterialTheme.typography.headlineMedium,
+                                modifier = Modifier.padding(top = 4.dp).align(Alignment.CenterHorizontally)
+                            )
+                            Text(
+                                text = it.description,
+                                style = MaterialTheme.typography.bodyMedium,
+                                modifier = Modifier.padding(top = 4.dp).align(Alignment.CenterHorizontally),
+                            )
+                        }
+                    }
+
+                    Button(
+                        modifier = Modifier.padding(top = 8.dp).align(Alignment.CenterHorizontally),
+                        onClick = {
                         if (activity.storagePermission()) {
                             saveImage(context, imageUrl)
                         }
