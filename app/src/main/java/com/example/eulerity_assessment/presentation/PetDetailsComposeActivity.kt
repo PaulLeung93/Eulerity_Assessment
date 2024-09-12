@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialogDefaults.shape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -36,11 +37,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import coil.compose.AsyncImage
@@ -105,6 +108,7 @@ fun PetDetailsScreen(pet: Pet?, activity: PetDetailsComposeActivity) {
             painter = painterResource(id = R.drawable.background3),
             contentDescription = null,
             contentScale = ContentScale.Crop
+
         )
 
         Scaffold(
@@ -119,7 +123,9 @@ fun PetDetailsScreen(pet: Pet?, activity: PetDetailsComposeActivity) {
             },
             containerColor = Color.Transparent
         ) { innerPadding ->
-            Column(modifier = Modifier.padding(innerPadding).padding(16.dp)) {
+            Column(modifier = Modifier
+                .padding(innerPadding),
+            ) {
                 pet?.let {
                     val imageUrl = it.url
                     AsyncImage(
@@ -136,19 +142,19 @@ fun PetDetailsScreen(pet: Pet?, activity: PetDetailsComposeActivity) {
                             .clip(RoundedCornerShape(15.dp))
                             .background(Color.White)
                             .align(Alignment.CenterHorizontally)
-                            .padding(10.dp)
-
+                            .padding(10.dp),
+                            contentAlignment = Alignment.Center
                     ) {
-                        Column {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Text(
                                 text = it.title,
                                 style = MaterialTheme.typography.headlineMedium,
-                                modifier = Modifier.padding(top = 4.dp).align(Alignment.CenterHorizontally)
+                                modifier = Modifier.padding(top = 4.dp)
                             )
                             Text(
                                 text = it.description,
                                 style = MaterialTheme.typography.bodyMedium,
-                                modifier = Modifier.padding(top = 4.dp).align(Alignment.CenterHorizontally),
+                                modifier = Modifier.padding(top = 4.dp),
                             )
                         }
                     }
